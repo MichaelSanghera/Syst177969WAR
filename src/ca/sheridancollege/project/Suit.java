@@ -9,8 +9,21 @@ package ca.sheridancollege.project;
  * @author HP
  */
 public enum Suit {
- CLUBS,
- SPADES,
- HEARTS,
- DIAMONDS;
+ CLUBS("Clubs"),
+ SPADES("Spades"),
+ HEARTS("Hearts"),
+ DIAMONDS("Diamonds");
+ 
+ private String suitName;
+ 
+ Suit(String suitName){
+     this.suitName=suitName;
+ }
+ public String getSuitName(){
+  return this.suitName;   
+ }
+@Override
+public String toString(){
+    return this.getSuitName();
+}
 }
