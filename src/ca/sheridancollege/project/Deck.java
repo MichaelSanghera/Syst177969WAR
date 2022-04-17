@@ -29,7 +29,7 @@ class Deck {
         for(int x=0; x<4; x++){
             switch (x) {
                 case 0:
-                    suit = "Cloud";
+                    suit = "Clubs";
                     break;
                 case 1:
                     suit = "Hearts";
