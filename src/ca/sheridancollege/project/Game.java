@@ -42,13 +42,7 @@ public void startGame(){
                 Deck2.add(deck.getFromShuffledDeck(x+26));
                 
             }
-            //Welcome users, prompts for names
-            System.out.println("Welcome to WAR CARD GAME! Lets Play!\n");
-            System.out.println("Enter the First player's name");
-            firstPlayer = sc.nextLine();
-            System.out.println("Enter the Second player's name");
-            secondPlayer = sc.nextLine();
-            
+             Welcome();          
             // display header
             System.out.println(firstPlayer+"\t\t\t#Cards\t\t" +secondPlayer+ "\t\t\t#Cards\t\tWinner");
             while(!winner){
@@ -209,6 +203,14 @@ public void startGame(){
         warDeck.add(2,warDeck.get(7));
         warDeck.remove(7);
     }
+    public void Welcome(){
+      //Welcome users, prompts for names
+            System.out.println("Welcome to WAR CARD GAME! Lets Play!\n");
+            System.out.println("Enter the First player's name");
+            firstPlayer = sc.nextLine();
+            System.out.println("Enter the Second player's name");
+            secondPlayer = sc.nextLine();
    
+    }
 
 }//end class
