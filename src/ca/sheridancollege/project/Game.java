@@ -11,15 +11,17 @@ import java.util.Scanner;
 
 public class Game {
     Scanner sc = new Scanner(System.in);
-        String firstPlayer;
-        String secondPlayer;
+       String firstPlayer;
+         String secondPlayer;
         String roundwinner = "";
-        String gamewinner = "";
+       String gamewinner = "";
         
         int temp;
         int play = 1;
     private ArrayList<Player> players;// the players of the game
-
+ArrayList<Card> Deck1 = new ArrayList<>(56);
+            ArrayList<Card> Deck2 = new ArrayList<>(56);
+            ArrayList<Card> warDeck = new ArrayList<>(9);
 
 public void startGame(){
     int temp;
@@ -30,18 +32,13 @@ public void startGame(){
             
             Deck deck = new Deck();
             deck.Shuffle();
-            
-            //create array lists
             ArrayList<Card> Deck1 = new ArrayList<>(56);
             ArrayList<Card> Deck2 = new ArrayList<>(56);
             ArrayList<Card> warDeck = new ArrayList<>(9);
+
+           
             
-            for(int x= 0; x<26; x++){
-                System.out.println("Getting from shuffled deck: Position:"+x+","+(x+26));
-                Deck1.add(deck.getFromShuffledDeck(x));
-                Deck2.add(deck.getFromShuffledDeck(x+26));
-                
-            }
+            
              Welcome();          
             // display header
             System.out.println(firstPlayer+"\t\t\t#Cards\t\t" +secondPlayer+ "\t\t\t#Cards\t\tWinner");
@@ -80,7 +77,50 @@ public void startGame(){
                 
                 if(x==3){
                     war();
-                    System.out.print(Deck1.get(0)+ "\t" + Deck1.size()+ "\t\t" + Deck2.get(0)+ "\t"+ Deck2.size() + "\t\t");
+                break;
+                }
+                // if any of the players has 52 cards, there will be a winner and inner loop will stop
+                if(Deck1.size()==52){
+                    gamewinner = firstPlayer;
+                    winner = true;
+                }
+                if(Deck2.size()==52){
+                    gamewinner = secondPlayer;
+                    winner = true;
+                }
+                declareWinner();
+            }
+            // end of the inner loop
+            //congratulates the winner
+            
+            //ask them if they wanna play again
+            System.out.println(gamewinner + "WINS! Congratulations!");
+            System.out.print("Play again (y/n)?");
+            String option;
+            option = sc.nextLine().toLowerCase();
+            option = ""+ option.charAt(0);
+            
+            //check error
+            while(!(option.equals("y")||option.equals("n"))){
+                System.out.print("invalid option. Please enter Y or N: ");
+                option = sc.nextLine().toUpperCase();
+                option = "" + option.charAt(0);
+            }
+            if(option.equals("y")){
+                play = 1;
+            }
+            else{
+                play = 0;
+            }
+        }
+        // end of outer loop
+        System.out.print("Thank you for playing!");
+    }//end of main method
+
+    public void war() {
+      
+        System.out.println("**===================================WAR=================================**");
+        System.out.print(Deck1.get(0)+ "\t" + Deck1.size()+ "\t\t" + Deck2.get(0)+ "\t"+ Deck2.size() + "\t\t");
                     
                     /*
                     *if either player has 4 cards or less, then they do not have enough cards
@@ -93,7 +133,7 @@ public void startGame(){
                         System.out.println("\t\t\t"+ firstPlayer + "does not have enough cards to go to war.");
                         endwar();
                         gamewinner = secondPlayer;
-                        break;
+                        
                     }
                     else if(Deck2.size() <= 4){
                         roundwinner = firstPlayer;
@@ -103,7 +143,7 @@ public void startGame(){
                         System.out.println("********************************END WAR*********************************");
                         
                         gamewinner = firstPlayer;
-                        break;
+                        
                     }
                     
                     //Adds 4 cards to the war deck from each player
@@ -154,46 +194,7 @@ public void startGame(){
                     System.out.println(roundwinner);
                     endwar();
                 }
-                // if any of the players has 52 cards, there will be a winner and inner loop will stop
-                if(Deck1.size()==52){
-                    gamewinner = firstPlayer;
-                    winner = true;
-                }
-                if(Deck2.size()==52){
-                    gamewinner = secondPlayer;
-                    winner = true;
-                }
-            }
-            // end of the inner loop
-            //congratulates the winner
-            
-            //ask them if they wanna play again
-            System.out.println(gamewinner + "WINS! Congratulations!");
-            System.out.print("Play again (y/n)?");
-            String option;
-            option = sc.nextLine().toLowerCase();
-            option = ""+ option.charAt(0);
-            
-            //check error
-            while(!(option.equals("y")||option.equals("n"))){
-                System.out.print("invalid option. Please enter Y or N: ");
-                option = sc.nextLine().toUpperCase();
-                option = "" + option.charAt(0);
-            }
-            if(option.equals("y")){
-                play = 1;
-            }
-            else{
-                play = 0;
-            }
-        }
-        // end of outer loop
-        System.out.print("Thank you for playing!");
-    }//end of main method
-
-    public static void war() {
-        System.out.println("**===================================WAR=================================**");
-    }
+    
     public static void endwar(){
         System.out.println("**=================================END WAR===============================**");
     }
@@ -212,5 +213,26 @@ public void startGame(){
             secondPlayer = sc.nextLine();
    
     }
-
+public void dealCards(Deck deck){
+  //create array lists
+            ArrayList<Card> Deck1 = new ArrayList<>(56);
+            ArrayList<Card> Deck2 = new ArrayList<>(56);
+            ArrayList<Card> warDeck = new ArrayList<>(9);
+    for(int x= 0; x<26; x++){
+                System.out.println("Getting from shuffled deck: Position:"+x+","+(x+26));
+                Deck1.add(deck.getFromShuffledDeck(x));
+                Deck2.add(deck.getFromShuffledDeck(x+26));
+                
+            }
+}
+public void declareWinner(){
+     if(Deck1.size()==52){
+                    gamewinner = firstPlayer;
+                    
+                }
+                if(Deck2.size()==52){
+                    gamewinner = secondPlayer;
+                    
+                }
+}
 }//end class
